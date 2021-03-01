@@ -7,13 +7,13 @@ namespace Fractals.Processing.Tests
         [TestFixture]
         public class WhenIterating
         {
-            private Pixel _sut;
-            private Pixel _expected;
+            private MandelbrotPixel _sut;
+            private MandelbrotPixel _expected;
 
             [SetUp]
             public void Setup()
             {
-                _expected = new Pixel
+                _expected = new MandelbrotPixel
                 {
                     Finished = false,
                     Iterations = 2,
@@ -21,7 +21,7 @@ namespace Fractals.Processing.Tests
                     Z = new Complex(0.75m, 0)
                 };
 
-                _sut = new Pixel
+                _sut = new MandelbrotPixel
                 {
                     Finished = false,
                     Iterations = 1,
@@ -61,13 +61,13 @@ namespace Fractals.Processing.Tests
         [TestFixture]
         public class WhenIteratingForTheFirstTime
         {
-            private Pixel _sut;
-            private Pixel _expected;
+            private MandelbrotPixel _sut;
+            private MandelbrotPixel _expected;
 
             [SetUp]
             public void Setup()
             {
-                _expected = new Pixel
+                _expected = new MandelbrotPixel
                 {
                     Finished = false,
                     Iterations = 1,
@@ -75,7 +75,7 @@ namespace Fractals.Processing.Tests
                     Z = new Complex(0.5m, 0.2m)
                 };
 
-                _sut = new Pixel
+                _sut = new MandelbrotPixel
                 {
                     Finished = false,
                     Iterations = 0,
@@ -117,13 +117,13 @@ namespace Fractals.Processing.Tests
         [TestFixture]
         public class WhenIteratingAndFinishing
         {
-            private Pixel _sut;
-            private Pixel _expected;
+            private MandelbrotPixel _sut;
+            private MandelbrotPixel _expected;
 
             [SetUp]
             public void Setup()
             {
-                _expected = new Pixel
+                _expected = new MandelbrotPixel
                 {
                     Finished = true,
                     Iterations = 2,
@@ -131,7 +131,7 @@ namespace Fractals.Processing.Tests
                     Z = new Complex(2, -6)
                 };
 
-                _sut = new Pixel
+                _sut = new MandelbrotPixel
                 {
                     Finished = false,
                     Iterations = 1,

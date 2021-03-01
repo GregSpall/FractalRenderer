@@ -1,4 +1,6 @@
-﻿namespace Fractals.Processing
+﻿using System;
+
+namespace Fractals.Processing
 {
     public struct Complex
     {
@@ -11,7 +13,12 @@
             Imaginary = imaginary;
         }
 
-        public decimal Abs()
+        public double QuickAbs()
+        {
+            return Math.Sqrt((double)(Real * Real + Imaginary * Imaginary));
+        }
+
+        public decimal AccurateAbs()
         {
             return DecimalExtensions.Sqrt(Real * Real + Imaginary * Imaginary);
         }

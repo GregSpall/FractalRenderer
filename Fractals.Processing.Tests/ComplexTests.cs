@@ -55,7 +55,7 @@ namespace Fractals.Processing.Tests
         {
             var sut = new Complex(real, imaginary);
 
-            Assert.That(sut.Abs(), Is.EqualTo(expected));
+            Assert.That(sut.QuickAbs(), Is.EqualTo(expected));
         }
 
         [Test]
