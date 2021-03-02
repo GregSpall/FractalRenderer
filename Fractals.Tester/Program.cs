@@ -34,29 +34,36 @@ namespace Fractals.Tester
             var timer = new Stopwatch();
             timer.Start();
 
-            const uint width = 1000u;
-            const uint height = 1000u;
-            var centre = new Complex(0, -0.6m);
+            const int width = 1000; // Real Axis
+            const int height = 1000; // Imaginary Axis
+            var centre = new Complex(0m, 0m);
             var range = new Complex(3m, 3m);
 
-            var arrayBuilder = new GraphArrayBuilder();
+            var arrayBuilder = new ComplexPlaneBuilder();
             var bitmapConverter = new ByteArrayToBitmapConverter();
-            var iterator = new Iterator(arrayBuilder);
-            await iterator.SetupAsync(width, height, centre, range);
+            var iterator = new Iterator();
+            var renderer = new JuliaRenderer(arrayBuilder, iterator);
+            renderer.C = new Complex(0.285m, 0.01m);
+            await renderer.SetupAsync(width, height, centre, range);
 
             Console.WriteLine("Iterating...");
             var iterationTimer = new Stopwatch();
-            for (var i = 0; i < 100; i++)
+            for (var i = 0; i < 200; i++)
             {
                 iterationTimer.Start();
-                await iterator.IterateAsync();
+                await renderer.IterateAsync();
                 Console.WriteLine($"Iteration {i} complete taking {iterationTimer.Elapsed.TotalSeconds} seconds.");
                 iterationTimer.Reset();
             }
             Console.WriteLine("Drawing...");
 
+            var palette = new ColourPalette();
+            palette.AddMarker(Colour.Black(), 0);
+            palette.AddMarker(Colour.White(), 99.999m);
+            palette.AddMarker(Colour.Black(), 100);
+
             // Get byte array of 32bpp colour data
-            var imageBytes = await iterator.Get32BppImageByteArrayAsync();
+            var imageBytes = await renderer.Get32BppImageByteArrayAsync(palette);
 
             // Convert byte array to bitmap
             var image = await bitmapConverter.ConvertAsync(imageBytes, width, height);
@@ -64,7 +71,7 @@ namespace Fractals.Tester
             // Encode to png
             var imageData = image.Encode(SKEncodedImageFormat.Png, int.MaxValue);
             // Save to file system
-            await using var fs = new FileStream($@"C:\FractalOutput\Mandelbrot{DateTime.Now:yyyyMMddHHmmss}.png", FileMode.CreateNew);
+            await using var fs = new FileStream($@"C:\FractalOutput\Julia{DateTime.Now:yyyyMMddHHmmss}.png", FileMode.CreateNew);
             imageData.SaveTo(fs);
 
             Console.WriteLine($"Finished, took {timer.Elapsed.TotalSeconds} seconds.");

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SkiaSharp;
 
 namespace Fractals.Processing
 {
@@ -101,9 +102,15 @@ namespace Fractals.Processing
             Alpha = alpha;
         }
 
-        public byte[] ToBytes()
+        public byte[] ToBytes(SKColorType imageFormat = SKColorType.Rgba8888)
         {
-            return new [] { Red, Green, Blue, Alpha };
+            switch (imageFormat)
+            {
+                case SKColorType.Rgba8888:
+                    return new [] { Red, Green, Blue, Alpha };
+                default:
+                    throw new NotImplementedException();
+            }
         }
 
         public static Colour Black() => new Colour(0,0,0,255);

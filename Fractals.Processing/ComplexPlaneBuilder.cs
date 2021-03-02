@@ -1,13 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using Fractals.Processing.Interface;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Fractals.Processing
 {
-    public class GraphArrayBuilder : IBuildGraphArrays
+    public class ComplexPlaneBuilder : IBuildTheComplexPlane
     {
-        public async Task<Complex[,]> BuildArrayAsync(uint width, uint height, Complex centre, Complex range, CancellationToken ct = default)
+        public async Task<Complex[,]> BuildArrayAsync(int width, int height, Complex centre, Complex range, CancellationToken ct = default)
         {
+            if (width <= 0 || height <= 0)
+            {
+                throw new ArgumentException("Dimensions must be > 0.");
+            }
+
             var output = new Complex[width, height];
 
             var xMin = centre.Real - (range.Real / 2);
@@ -16,13 +23,13 @@ namespace Fractals.Processing
             var tasks = new List<Task>();
             for (var x = 0; x < width; x++)
             {
-                var imaginary = xMin + ((x / (decimal) width) * range.Real);
+                var real = xMin + ((x / (decimal) (width - 1)) * range.Real);
                 var localX = x;
                 tasks.Add(Task.Run(() =>
                 {
                     for (var y = 0; y < height; y++)
                     {
-                        var real = yMin + ((y / (decimal) height) * range.Imaginary);
+                        var imaginary = yMin + ((y / (decimal) (height - 1)) * range.Imaginary);
                         output[localX, y] = new Complex(real, imaginary);
                     }
                 }, ct));
@@ -31,10 +38,5 @@ namespace Fractals.Processing
 
             return output;
         }
-    }
-
-    public interface IBuildGraphArrays
-    {
-        Task<Complex[,]> BuildArrayAsync(uint width, uint height, Complex centre, Complex range, CancellationToken ct = default);
     }
 }

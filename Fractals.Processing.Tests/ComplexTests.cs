@@ -43,7 +43,7 @@ namespace Fractals.Processing.Tests
             var a = new Complex(aReal, aImaginary);
             var b = new Complex(bReal, bImaginary);
 
-            var result = a + b;
+            var result = a - b;
 
             Assert.That(result.Real, Is.EqualTo(expectedReal));
             Assert.That(result.Imaginary, Is.EqualTo(expectedImaginary));

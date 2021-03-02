@@ -13,6 +13,11 @@ namespace Fractals.Processing
             Imaginary = imaginary;
         }
 
+        public override string ToString()
+        {
+            return $"{Real} + {Imaginary}i";
+        }
+
         public double QuickAbs()
         {
             return Math.Sqrt((double)(Real * Real + Imaginary * Imaginary));

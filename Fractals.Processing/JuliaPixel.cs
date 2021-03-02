@@ -2,13 +2,13 @@
 
 namespace Fractals.Processing
 {
-    public struct MandelbrotPixel : IPixel
+    public struct JuliaPixel : IPixel
     {
         private uint _totalIterations;
         public uint Iterations { get; set; }
         public bool Finished { get; set; }
 
-        public Complex Position { get; set; }
+        public Complex C { get; set; }
         public Complex Z { get; set; }
 
         public IPixel SetPosition(Complex position)
@@ -16,7 +16,6 @@ namespace Fractals.Processing
             _totalIterations = 0;
             Iterations = 0;
             Finished = false;
-            Position = position;
             Z = position;
 
             return this;
@@ -26,7 +25,7 @@ namespace Fractals.Processing
         {
             _totalIterations++;
             if (Finished) return;
-            Z = (Z * Z) + Position;
+            Z = (Z * Z) + C;
             Iterations++;
             Finished = HasEscaped();
         }

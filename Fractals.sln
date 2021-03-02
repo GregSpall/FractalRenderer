@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fractals.Processing", "Frac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fractals.Processing.Tests", "Fractals.Processing.Tests\Fractals.Processing.Tests.csproj", "{35BD013A-1283-4A5E-AF15-23D432A7E426}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fractals.Tester", "Fractals.Tester\Fractals.Tester.csproj", "{C882F9CF-73E1-4962-BF92-A38A5F549888}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fractals.Tester", "Fractals.Tester\Fractals.Tester.csproj", "{C882F9CF-73E1-4962-BF92-A38A5F549888}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
